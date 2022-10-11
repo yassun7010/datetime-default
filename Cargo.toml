@@ -5,7 +5,7 @@ edition = "2021"
 authors = ["yassun4dev <yassun4dev@outlook.com>"]
 repository = "https://github.com/yassun4dev/datetime-default.git"
 description = "Provide NewType of Datetime that overrides the default value."
-keywords = ["datetime", "default"]
+keywords = ["datetime", "default", "chrono", "now"]
 license = "MIT"
 
 [dependencies]
