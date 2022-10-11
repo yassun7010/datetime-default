@@ -8,9 +8,9 @@
 When you want to use `#[derive(Default)]` to a struct, you may want the current time to be the default for `DateTime`.
 For this purpose, we have provided NewType that overrides the default value.
 
-### Examples
+### Features
 #### DateTimeDefaultNow
-DateTime with current time as default
+DateTime with current time as default.
 
 ```rust
 use chrono::{Local, TimeZone};
@@ -23,7 +23,7 @@ assert_eq!(
 ```
 
 #### DateTimeDefaultUnix
-DateTime with UNIX epoch as default
+DateTime with UNIX epoch as default.
 
 ```rust
 use chrono::{Utc, TimeZone};

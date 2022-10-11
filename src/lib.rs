@@ -6,9 +6,9 @@
 //! When you want to use `#[derive(Default)]` to a struct, you may want the current time to be the default for `DateTime`.
 //! For this purpose, we have provided NewType that overrides the default value.
 //!
-//! ## Examples
+//! ## Features
 //! ### DateTimeDefaultNow
-//! DateTime with current time as default
+//! DateTime with current time as default.
 //!
 //! ```should_panic
 //! use chrono::{Local, TimeZone};
@@ -21,7 +21,7 @@
 //! ```
 //!
 //! ### DateTimeDefaultUnix
-//! DateTime with UNIX epoch as default
+//! DateTime with UNIX epoch as default.
 //!
 //! ```
 //! use chrono::{Utc, TimeZone};
