@@ -430,9 +430,8 @@ mod tests {
     #[test]
     fn fixed_offset() {
         let datetime = DateTimeDefaultUnix::<FixedOffset, 9>::default();
-        println!("{datetime:?}");
 
-        // assert!(false);
+        assert_eq!(datetime.to_rfc3339(), "1970-01-01T09:00:00+09:00");
     }
 
     #[test]
