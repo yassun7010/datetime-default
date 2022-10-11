@@ -245,6 +245,16 @@ where
     }
 }
 
+impl<Tz, const OFFSET_HOURS: i32> std::fmt::Display for DateTimeDefaultNow<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy + std::fmt::Display,
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
 #[cfg(test)]
 mod tests {
 
