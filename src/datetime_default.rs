@@ -2,7 +2,8 @@
 //!
 //! This document is written as a reservation for the future.
 //! `DateTimeDefault` will be implemented when `const &'static str` become available as generic parameters.
-//! ```
+//!
+//! ```compile_fail
 //! use chrono::{Utc, TimeZone};
 //!
 //! #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
