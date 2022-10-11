@@ -1,6 +1,6 @@
 use std::ops::Deref;
 
-use chrono::{DateTime, FixedOffset, Local, TimeZone, Utc};
+use chrono::{DateTime, Duration, FixedOffset, Local, TimeZone, Utc};
 
 /// # DateTime with UNIX epoch as default.
 ///
@@ -106,6 +106,45 @@ where
         other: &DateTimeDefaultUnix<Tz, OFFSET_HOURS>,
     ) -> Option<std::cmp::Ordering> {
         self.partial_cmp(&other.0)
+    }
+}
+
+impl<Tz, const OFFSET_HOURS: i32> std::ops::Add<Duration> for DateTimeDefaultUnix<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    type Output = DateTimeDefaultUnix<Tz, OFFSET_HOURS>;
+
+    #[inline]
+    fn add(self, rhs: Duration) -> Self::Output {
+        return DateTimeDefaultUnix(self.0.add(rhs));
+    }
+}
+
+impl<Tz, const OFFSET_HOURS: i32> std::ops::Add<FixedOffset>
+    for DateTimeDefaultUnix<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    type Output = DateTimeDefaultUnix<Tz, OFFSET_HOURS>;
+
+    #[inline]
+    fn add(self, rhs: FixedOffset) -> Self::Output {
+        return DateTimeDefaultUnix(self.0.add(rhs));
+    }
+}
+
+impl<Tz, const OFFSET_HOURS: i32> std::ops::AddAssign<Duration>
+    for DateTimeDefaultUnix<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    #[inline]
+    fn add_assign(&mut self, rhs: Duration) {
+        self.0.add_assign(rhs);
     }
 }
 

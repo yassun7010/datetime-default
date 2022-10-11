@@ -1,6 +1,6 @@
 use std::ops::Deref;
 
-use chrono::{DateTime, FixedOffset, Local, TimeZone, Utc};
+use chrono::{DateTime, Duration, FixedOffset, Local, TimeZone, Utc};
 
 #[cfg(test)]
 const NOW: &'static str = "2022/10/10 23:40:11.695164300";
@@ -125,6 +125,45 @@ where
         other: &DateTimeDefaultNow<Tz, OFFSET_HOURS>,
     ) -> Option<std::cmp::Ordering> {
         self.partial_cmp(&other.0)
+    }
+}
+
+impl<Tz, const OFFSET_HOURS: i32> std::ops::Add<Duration> for DateTimeDefaultNow<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    type Output = DateTimeDefaultNow<Tz, OFFSET_HOURS>;
+
+    #[inline]
+    fn add(self, rhs: Duration) -> Self::Output {
+        return DateTimeDefaultNow(self.0.add(rhs));
+    }
+}
+
+impl<Tz, const OFFSET_HOURS: i32> std::ops::Add<FixedOffset>
+    for DateTimeDefaultNow<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    type Output = DateTimeDefaultNow<Tz, OFFSET_HOURS>;
+
+    #[inline]
+    fn add(self, rhs: FixedOffset) -> Self::Output {
+        return DateTimeDefaultNow(self.0.add(rhs));
+    }
+}
+
+impl<Tz, const OFFSET_HOURS: i32> std::ops::AddAssign<Duration>
+    for DateTimeDefaultNow<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    #[inline]
+    fn add_assign(&mut self, rhs: Duration) {
+        self.0.add_assign(rhs);
     }
 }
 
