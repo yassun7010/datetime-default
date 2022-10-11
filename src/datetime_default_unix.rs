@@ -142,7 +142,7 @@ where
 
     #[inline]
     fn add(self, rhs: Duration) -> Self::Output {
-        return DateTimeDefaultUnix(self.0.add(rhs));
+        DateTimeDefaultUnix(self.0.add(rhs))
     }
 }
 
@@ -156,7 +156,7 @@ where
 
     #[inline]
     fn add(self, rhs: FixedOffset) -> Self::Output {
-        return DateTimeDefaultUnix(self.0.add(rhs));
+        DateTimeDefaultUnix(self.0.add(rhs))
     }
 }
 
@@ -209,7 +209,7 @@ where
 
     #[inline]
     fn sub(self, rhs: Duration) -> Self::Output {
-        return DateTimeDefaultUnix(self.0.sub(rhs));
+        DateTimeDefaultUnix(self.0.sub(rhs))
     }
 }
 
@@ -223,7 +223,7 @@ where
 
     #[inline]
     fn sub(self, rhs: FixedOffset) -> Self::Output {
-        return DateTimeDefaultUnix(self.0.sub(rhs));
+        DateTimeDefaultUnix(self.0.sub(rhs))
     }
 }
 

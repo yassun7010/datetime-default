@@ -3,7 +3,7 @@ use std::ops::Deref;
 use chrono::{DateTime, Duration, FixedOffset, Local, TimeZone, Utc};
 
 #[cfg(test)]
-const NOW: &'static str = "2022/10/10 23:40:11.695164300";
+const NOW: &str = "2022/10/10 23:40:11.695164300";
 
 /// # DateTime with current time as default.
 ///
@@ -161,7 +161,7 @@ where
 
     #[inline]
     fn add(self, rhs: Duration) -> Self::Output {
-        return DateTimeDefaultNow(self.0.add(rhs));
+        DateTimeDefaultNow(self.0.add(rhs))
     }
 }
 
@@ -175,7 +175,7 @@ where
 
     #[inline]
     fn add(self, rhs: FixedOffset) -> Self::Output {
-        return DateTimeDefaultNow(self.0.add(rhs));
+        DateTimeDefaultNow(self.0.add(rhs))
     }
 }
 
@@ -228,7 +228,7 @@ where
 
     #[inline]
     fn sub(self, rhs: Duration) -> Self::Output {
-        return DateTimeDefaultNow(self.0.sub(rhs));
+        DateTimeDefaultNow(self.0.sub(rhs))
     }
 }
 
@@ -242,7 +242,7 @@ where
 
     #[inline]
     fn sub(self, rhs: FixedOffset) -> Self::Output {
-        return DateTimeDefaultNow(self.0.sub(rhs));
+        DateTimeDefaultNow(self.0.sub(rhs))
     }
 }
 
