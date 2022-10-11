@@ -14,14 +14,17 @@ use chrono::{DateTime, FixedOffset, Local, TimeZone, Utc};
 /// );
 /// ```
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct DateTimeDefaultUnix<Tz, const N: i32 = 0>(DateTime<Tz>)
+pub struct DateTimeDefaultUnix<Tz, const OFFSET_HOURS: i32 = 0>(DateTime<Tz>)
 where
     Tz: TimeZone,
     <Tz as TimeZone>::Offset: Copy;
 
-impl<const N: i32> Default for DateTimeDefaultUnix<FixedOffset, N> {
+impl<const OFFSET_HOURS: i32> Default for DateTimeDefaultUnix<FixedOffset, OFFSET_HOURS> {
     fn default() -> Self {
-        Self(DateTimeDefaultUnix::<Utc>::default().with_timezone(&FixedOffset::east(N * 3600)))
+        Self(
+            DateTimeDefaultUnix::<Utc>::default()
+                .with_timezone(&FixedOffset::east(OFFSET_HOURS * 3600)),
+        )
     }
 }
 
@@ -37,7 +40,7 @@ impl Default for DateTimeDefaultUnix<Utc, 0> {
     }
 }
 
-impl<Tz, const N: i32> Deref for DateTimeDefaultUnix<Tz, N>
+impl<Tz, const OFFSET_HOURS: i32> Deref for DateTimeDefaultUnix<Tz, OFFSET_HOURS>
 where
     Tz: TimeZone,
     <Tz as TimeZone>::Offset: Copy,
@@ -49,7 +52,7 @@ where
     }
 }
 
-impl<Tz, const N: i32> From<DateTime<Tz>> for DateTimeDefaultUnix<Tz, N>
+impl<Tz, const OFFSET_HOURS: i32> From<DateTime<Tz>> for DateTimeDefaultUnix<Tz, OFFSET_HOURS>
 where
     Tz: TimeZone,
     <Tz as TimeZone>::Offset: Copy,
@@ -59,7 +62,8 @@ where
     }
 }
 
-impl<Tz, const N: i32> std::cmp::PartialEq<DateTime<Tz>> for DateTimeDefaultUnix<Tz, N>
+impl<Tz, const OFFSET_HOURS: i32> std::cmp::PartialEq<DateTime<Tz>>
+    for DateTimeDefaultUnix<Tz, OFFSET_HOURS>
 where
     Tz: TimeZone,
     <Tz as TimeZone>::Offset: Copy,
@@ -69,17 +73,19 @@ where
     }
 }
 
-impl<Tz, const N: i32> std::cmp::PartialEq<DateTimeDefaultUnix<Tz, N>> for DateTime<Tz>
+impl<Tz, const OFFSET_HOURS: i32> std::cmp::PartialEq<DateTimeDefaultUnix<Tz, OFFSET_HOURS>>
+    for DateTime<Tz>
 where
     Tz: TimeZone,
     <Tz as TimeZone>::Offset: Copy,
 {
-    fn eq(&self, other: &DateTimeDefaultUnix<Tz, N>) -> bool {
+    fn eq(&self, other: &DateTimeDefaultUnix<Tz, OFFSET_HOURS>) -> bool {
         self.eq(&other.0)
     }
 }
 
-impl<Tz, const N: i32> std::cmp::PartialOrd<DateTime<Tz>> for DateTimeDefaultUnix<Tz, N>
+impl<Tz, const OFFSET_HOURS: i32> std::cmp::PartialOrd<DateTime<Tz>>
+    for DateTimeDefaultUnix<Tz, OFFSET_HOURS>
 where
     Tz: TimeZone,
     <Tz as TimeZone>::Offset: Copy,
@@ -89,12 +95,16 @@ where
     }
 }
 
-impl<Tz, const N: i32> std::cmp::PartialOrd<DateTimeDefaultUnix<Tz, N>> for DateTime<Tz>
+impl<Tz, const OFFSET_HOURS: i32> std::cmp::PartialOrd<DateTimeDefaultUnix<Tz, OFFSET_HOURS>>
+    for DateTime<Tz>
 where
     Tz: TimeZone,
     <Tz as TimeZone>::Offset: Copy,
 {
-    fn partial_cmp(&self, other: &DateTimeDefaultUnix<Tz, N>) -> Option<std::cmp::Ordering> {
+    fn partial_cmp(
+        &self,
+        other: &DateTimeDefaultUnix<Tz, OFFSET_HOURS>,
+    ) -> Option<std::cmp::Ordering> {
         self.partial_cmp(&other.0)
     }
 }
