@@ -62,6 +62,30 @@ where
     }
 }
 
+impl<const OFFSET_HOURS: i32> std::str::FromStr for DateTimeDefaultUnix<FixedOffset, OFFSET_HOURS> {
+    type Err = chrono::ParseError;
+
+    fn from_str(s: &str) -> chrono::ParseResult<DateTimeDefaultUnix<FixedOffset, OFFSET_HOURS>> {
+        DateTime::<FixedOffset>::from_str(s).map(DateTimeDefaultUnix::from)
+    }
+}
+
+impl<const OFFSET_HOURS: i32> std::str::FromStr for DateTimeDefaultUnix<Local, OFFSET_HOURS> {
+    type Err = chrono::ParseError;
+
+    fn from_str(s: &str) -> chrono::ParseResult<DateTimeDefaultUnix<Local, OFFSET_HOURS>> {
+        DateTime::<Local>::from_str(s).map(DateTimeDefaultUnix::from)
+    }
+}
+
+impl<const OFFSET_HOURS: i32> std::str::FromStr for DateTimeDefaultUnix<Utc, OFFSET_HOURS> {
+    type Err = chrono::ParseError;
+
+    fn from_str(s: &str) -> chrono::ParseResult<DateTimeDefaultUnix<Utc, OFFSET_HOURS>> {
+        DateTime::<Utc>::from_str(s).map(DateTimeDefaultUnix::from)
+    }
+}
+
 impl<Tz, const OFFSET_HOURS: i32> std::cmp::PartialEq<DateTime<Tz>>
     for DateTimeDefaultUnix<Tz, OFFSET_HOURS>
 where
