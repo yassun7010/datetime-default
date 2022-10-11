@@ -1,6 +1,6 @@
 [package]
 name = "datetime-default"
-version = "0.1.1"
+version = "1.0.0"
 edition = "2021"
 authors = ["yassun4dev <yassun4dev@outlook.com>"]
 repository = "https://github.com/yassun4dev/datetime-default.git"
