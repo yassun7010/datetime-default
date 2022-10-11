@@ -148,6 +148,26 @@ where
     }
 }
 
+impl<Tz, const OFFSET_HOURS: i32> chrono::DurationRound for DateTimeDefaultUnix<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    type Err = chrono::RoundingError;
+
+    fn duration_round(self, duration: Duration) -> Result<Self, Self::Err> {
+        self.0
+            .duration_round(duration)
+            .map(DateTimeDefaultUnix::from)
+    }
+
+    fn duration_trunc(self, duration: Duration) -> Result<Self, Self::Err> {
+        self.0
+            .duration_trunc(duration)
+            .map(DateTimeDefaultUnix::from)
+    }
+}
+
 impl<Tz, const OFFSET_HOURS: i32> chrono::Datelike for DateTimeDefaultUnix<Tz, OFFSET_HOURS>
 where
     Tz: TimeZone,
