@@ -191,6 +191,73 @@ where
     }
 }
 
+impl<Tz, const OFFSET_HOURS: i32> std::ops::Sub<DateTimeDefaultNow<Tz, OFFSET_HOURS>>
+    for DateTimeDefaultNow<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    type Output = Duration;
+
+    #[inline]
+    fn sub(self, rhs: DateTimeDefaultNow<Tz, OFFSET_HOURS>) -> Duration {
+        self.0.sub(rhs.0)
+    }
+}
+
+impl<Tz, const OFFSET_HOURS: i32> std::ops::Sub<DateTime<Tz>>
+    for DateTimeDefaultNow<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    type Output = Duration;
+
+    #[inline]
+    fn sub(self, rhs: DateTime<Tz>) -> Duration {
+        self.0.sub(rhs)
+    }
+}
+
+impl<Tz, const OFFSET_HOURS: i32> std::ops::Sub<Duration> for DateTimeDefaultNow<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    type Output = DateTimeDefaultNow<Tz, OFFSET_HOURS>;
+
+    #[inline]
+    fn sub(self, rhs: Duration) -> Self::Output {
+        return DateTimeDefaultNow(self.0.sub(rhs));
+    }
+}
+
+impl<Tz, const OFFSET_HOURS: i32> std::ops::Sub<FixedOffset>
+    for DateTimeDefaultNow<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    type Output = DateTimeDefaultNow<Tz, OFFSET_HOURS>;
+
+    #[inline]
+    fn sub(self, rhs: FixedOffset) -> Self::Output {
+        return DateTimeDefaultNow(self.0.sub(rhs));
+    }
+}
+
+impl<Tz, const OFFSET_HOURS: i32> std::ops::SubAssign<Duration>
+    for DateTimeDefaultNow<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    #[inline]
+    fn sub_assign(&mut self, rhs: Duration) {
+        self.0.sub_assign(rhs);
+    }
+}
+
 impl<Tz, const OFFSET_HOURS: i32> chrono::DurationRound for DateTimeDefaultNow<Tz, OFFSET_HOURS>
 where
     Tz: TimeZone,
