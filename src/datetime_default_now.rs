@@ -128,6 +128,84 @@ where
     }
 }
 
+impl<Tz, const OFFSET_HOURS: i32> chrono::Datelike for DateTimeDefaultNow<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    #[inline]
+    fn year(&self) -> i32 {
+        self.0.year()
+    }
+    #[inline]
+    fn month(&self) -> u32 {
+        self.0.month()
+    }
+    #[inline]
+    fn month0(&self) -> u32 {
+        self.0.month0()
+    }
+    #[inline]
+    fn day(&self) -> u32 {
+        self.0.day()
+    }
+    #[inline]
+    fn day0(&self) -> u32 {
+        self.0.day0()
+    }
+    #[inline]
+    fn ordinal(&self) -> u32 {
+        self.0.ordinal()
+    }
+    #[inline]
+    fn ordinal0(&self) -> u32 {
+        self.0.ordinal0()
+    }
+    #[inline]
+    fn weekday(&self) -> chrono::Weekday {
+        self.0.weekday()
+    }
+    #[inline]
+    fn iso_week(&self) -> chrono::IsoWeek {
+        self.0.iso_week()
+    }
+
+    #[inline]
+    fn with_year(&self, year: i32) -> Option<DateTimeDefaultNow<Tz, OFFSET_HOURS>> {
+        self.0.with_year(year).map(DateTimeDefaultNow::from)
+    }
+
+    #[inline]
+    fn with_month(&self, month: u32) -> Option<DateTimeDefaultNow<Tz, OFFSET_HOURS>> {
+        self.0.with_month(month).map(DateTimeDefaultNow::from)
+    }
+
+    #[inline]
+    fn with_month0(&self, month0: u32) -> Option<DateTimeDefaultNow<Tz, OFFSET_HOURS>> {
+        self.0.with_month0(month0).map(DateTimeDefaultNow::from)
+    }
+
+    #[inline]
+    fn with_day(&self, day: u32) -> Option<DateTimeDefaultNow<Tz, OFFSET_HOURS>> {
+        self.0.with_day(day).map(DateTimeDefaultNow::from)
+    }
+
+    #[inline]
+    fn with_day0(&self, day0: u32) -> Option<DateTimeDefaultNow<Tz, OFFSET_HOURS>> {
+        self.0.with_day0(day0).map(DateTimeDefaultNow::from)
+    }
+
+    #[inline]
+    fn with_ordinal(&self, ordinal: u32) -> Option<DateTimeDefaultNow<Tz, OFFSET_HOURS>> {
+        self.0.with_ordinal(ordinal).map(DateTimeDefaultNow::from)
+    }
+
+    #[inline]
+    fn with_ordinal0(&self, ordinal0: u32) -> Option<DateTimeDefaultNow<Tz, OFFSET_HOURS>> {
+        self.0.with_ordinal0(ordinal0).map(DateTimeDefaultNow::from)
+    }
+}
+
 #[cfg(test)]
 mod tests {
 
