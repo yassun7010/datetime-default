@@ -45,6 +45,7 @@
 //! );
 //! ```
 //!
+mod datetime_default;
 mod datetime_default_now;
 mod datetime_default_unix;
 
