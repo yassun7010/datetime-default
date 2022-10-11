@@ -356,6 +356,49 @@ where
     }
 }
 
+impl<Tz, const OFFSET_HOURS: i32> chrono::Timelike for DateTimeDefaultNow<Tz, OFFSET_HOURS>
+where
+    Tz: TimeZone,
+    <Tz as TimeZone>::Offset: Copy,
+{
+    #[inline]
+    fn hour(&self) -> u32 {
+        self.0.hour()
+    }
+    #[inline]
+    fn minute(&self) -> u32 {
+        self.0.minute()
+    }
+    #[inline]
+    fn second(&self) -> u32 {
+        self.0.second()
+    }
+    #[inline]
+    fn nanosecond(&self) -> u32 {
+        self.0.nanosecond()
+    }
+
+    #[inline]
+    fn with_hour(&self, hour: u32) -> Option<DateTimeDefaultNow<Tz, OFFSET_HOURS>> {
+        self.0.with_hour(hour).map(DateTimeDefaultNow::from)
+    }
+
+    #[inline]
+    fn with_minute(&self, min: u32) -> Option<DateTimeDefaultNow<Tz, OFFSET_HOURS>> {
+        self.0.with_minute(min).map(DateTimeDefaultNow::from)
+    }
+
+    #[inline]
+    fn with_second(&self, sec: u32) -> Option<DateTimeDefaultNow<Tz, OFFSET_HOURS>> {
+        self.0.with_second(sec).map(DateTimeDefaultNow::from)
+    }
+
+    #[inline]
+    fn with_nanosecond(&self, nano: u32) -> Option<DateTimeDefaultNow<Tz, OFFSET_HOURS>> {
+        self.0.with_nanosecond(nano).map(DateTimeDefaultNow::from)
+    }
+}
+
 impl<Tz, const OFFSET_HOURS: i32> std::fmt::Display for DateTimeDefaultNow<Tz, OFFSET_HOURS>
 where
     Tz: TimeZone,
