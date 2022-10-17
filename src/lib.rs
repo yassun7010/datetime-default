@@ -48,6 +48,7 @@
 mod datetime_default;
 mod datetime_default_now;
 mod datetime_default_unix;
+mod features;
 
 pub use datetime_default_now::DateTimeDefaultNow;
 pub use datetime_default_unix::DateTimeDefaultUnix;

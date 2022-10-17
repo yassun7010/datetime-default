@@ -9,4 +9,13 @@ keywords = ["datetime", "default", "chrono", "now"]
 license = "MIT"
 
 [dependencies]
-chrono = { version="^0.4", features = ["clock"]}
+chrono = { version = "^0.4", features = ["clock"]}
+"schemars-08" = { version = "0.8", default-features = false, optional = true, features = ["chrono", "derive"], package = "schemars" }
+
+[dev-dependencies]
+serde_json = "1.0.86"
+
+[features]
+default = []
+schemars = ["schemars-08"]
+
