@@ -10,11 +10,11 @@ license = "MIT"
 
 [dependencies]
 chrono = { version = "^0.4", features = ["clock"]}
-"schemars-08" = { version = "0.8", default-features = false, optional = true, features = ["chrono", "derive"], package = "schemars" }
+schemars = { version = "^0.8", default-features = false, optional = true, features = ["chrono", "derive"] }
 
 [dev-dependencies]
-serde_json = "1.0.86"
+serde_json = "^1.0"
 
 [features]
 default = []
-schemars = ["schemars-08"]
+schemars = ["dep:schemars"]

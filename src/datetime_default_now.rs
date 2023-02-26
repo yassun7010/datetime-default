@@ -2,6 +2,8 @@ use std::ops::Deref;
 
 use chrono::{DateTime, Duration, FixedOffset, Local, TimeZone, Utc};
 
+use crate::const_assert::AssertOffsetHours;
+
 #[cfg(test)]
 const NOW: &str = "2022/10/10 23:40:11.695164300";
 
@@ -23,10 +25,14 @@ where
     <Tz as TimeZone>::Offset: Copy;
 
 impl<const OFFSET_HOURS: i32> Default for DateTimeDefaultNow<FixedOffset, OFFSET_HOURS> {
+    #[allow(path_statements)]
+    #[allow(clippy::no_effect)]
     fn default() -> Self {
+        AssertOffsetHours::<-24, OFFSET_HOURS, 24>::OK;
+
         Self(
             DateTimeDefaultNow::<Utc>::default()
-                .with_timezone(&FixedOffset::east(OFFSET_HOURS * 3600)),
+                .with_timezone(&FixedOffset::east_opt(OFFSET_HOURS * 3600).unwrap()),
         )
     }
 }

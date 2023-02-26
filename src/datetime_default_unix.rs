@@ -2,6 +2,8 @@ use std::ops::Deref;
 
 use chrono::{DateTime, Duration, FixedOffset, Local, TimeZone, Utc};
 
+use crate::const_assert::AssertOffsetHours;
+
 /// # DateTime with UNIX epoch as default.
 ///
 /// ```
@@ -20,10 +22,14 @@ where
     <Tz as TimeZone>::Offset: Copy;
 
 impl<const OFFSET_HOURS: i32> Default for DateTimeDefaultUnix<FixedOffset, OFFSET_HOURS> {
+    #[allow(path_statements)]
+    #[allow(clippy::no_effect)]
     fn default() -> Self {
+        AssertOffsetHours::<-24, OFFSET_HOURS, 24>::OK;
+
         Self(
             DateTimeDefaultUnix::<Utc>::default()
-                .with_timezone(&FixedOffset::east(OFFSET_HOURS * 3600)),
+                .with_timezone(&FixedOffset::east_opt(OFFSET_HOURS * 3600).unwrap()),
         )
     }
 }
@@ -425,6 +431,16 @@ mod tests {
         let datetime = DateTimeDefaultUnix::<Utc>::default();
 
         print_datetime(&datetime)
+    }
+
+    #[test]
+    fn raise_max_offset_hours() {
+        DateTimeDefaultUnix::<FixedOffset, 23>::default();
+    }
+
+    #[test]
+    fn raise_min_offset_hours() {
+        DateTimeDefaultUnix::<FixedOffset, -23>::default();
     }
 
     #[test]

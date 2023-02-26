@@ -1,5 +1,5 @@
 use chrono::{DateTime, TimeZone};
-use schemars_08::{gen::SchemaGenerator, schema::Schema, JsonSchema};
+use schemars::{gen::SchemaGenerator, schema::Schema, JsonSchema};
 
 use crate::DateTimeDefaultNow;
 
@@ -21,7 +21,6 @@ where
 mod test {
     use chrono::FixedOffset;
     use schemars::schema_for;
-    use schemars_08 as schemars;
     use serde_json::json;
 
     use crate::DateTimeDefaultNow;
